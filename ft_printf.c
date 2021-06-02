@@ -11,8 +11,14 @@ int	output(const char param, va_list ap)
 		ft_putchar(va_arg(ap, int));
 	if (param == '%')
 		ft_putchar('%');
-	// if (param == 'p')
-		// ft_putchar(va_arg(ap, void *));
+	if (param == 'p')
+		ft_putptr(va_arg(ap, long long));
+	if (param == 'x' || param == 'X')
+		ft_putuint_base(va_arg(ap, unsigned int), param, 16);
+	if (param == 'o')
+		ft_putuint_base(va_arg(ap, unsigned int), param, 8);
+	if (param == 'u')
+		ft_putuint_base(va_arg(ap, unsigned int), param, 10);
 	return (2);
 }
 
