@@ -5,12 +5,14 @@ int	output(const char param, va_list ap)
 {
 	if (param == 's')
 		ft_putstr(va_arg(ap, char *));
-	if (param == 'd')
-		ft_putnbr(va_arg(ap, int));
+	if (param == 'd' || param == 'i')
+		ft_putint(va_arg(ap, int));
 	if (param == 'c')
 		ft_putchar(va_arg(ap, int));
 	if (param == '%')
 		ft_putchar('%');
+	// if (param == 'p')
+		// ft_putchar(va_arg(ap, void *));
 	return (2);
 }
 

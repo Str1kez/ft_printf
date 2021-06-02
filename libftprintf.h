@@ -9,7 +9,7 @@
 
 int		ft_printf(const char *args, ...);
 void	ft_putchar(char c);
-void	ft_putnbr(int n);
+void	ft_putint(int n);
 void	ft_putstr(char *s);
 
 #endif

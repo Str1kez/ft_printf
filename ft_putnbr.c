@@ -41,7 +41,7 @@ static int	num_on_iter(int n, int iter, int len)
 	return (help % 10);
 }
 
-void	ft_putnbr(int n)
+void	ft_putint(int n)
 {
 	int		len;
 	int		negative;
