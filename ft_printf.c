@@ -2,7 +2,6 @@
 
 static	void	init_settings(t_settings *s)
 {
-	s->asterisk = 0;
 	s->dot = 0;
 	s->minus = 0;
 	s->precision = 0;
@@ -10,19 +9,47 @@ static	void	init_settings(t_settings *s)
 	s->zero = 0;
 }
 
-static	void	set_settings(t_settings *setup, char key)
+static	void	set_flags(t_settings *setup, char key, va_list ap)
 {
 	if (key == '*')
-		setup->asterisk += 1;
+	{
+		if (setup->dot)
+			setup->precision = va_arg(ap, unsigned int);
+		else
+			setup->size = va_arg(ap, unsigned int);
+	}
 	if (key == '.')
 		setup->dot = 1;
 	if (key == '-')
+	{
+		if (setup->zero)
+			setup->zero = 0;
 		setup->minus = 1;
-	if (key == '0')
+	}
+	if (key == '0' && !setup->minus)
 		setup->zero = 1;
 }
 
-static	int	take_params(const char *args, va_list ap, t_settings *setup)
+static	int	set_precision_size(const char *args, t_settings *setup)
+{
+	int	num;
+	int	num_size;
+
+	num = ft_atoi(args);
+	num_size = get_num_len(num);
+	while (*args == '0')
+	{
+		num_size += 1;
+		args++;
+	}
+	if (setup->dot)
+		setup->precision = num;
+	else
+		setup->size = num;
+	return (num_size);
+}
+
+static	size_t	take_params(const char *args, va_list ap, t_settings *setup)
 {
 	size_t		size;
 	char		*res;
@@ -30,12 +57,14 @@ static	int	take_params(const char *args, va_list ap, t_settings *setup)
 	size = 0;
 	while (!is_conversion(args[size]))
 	{
+		if (ft_isdigit(args[size])
+			&& (args[size] != '0' || setup->zero || setup->minus))
+			size += set_precision_size(args + size, setup);
 		if (is_flag(args[size]))
-			set_settings(setup, args[size]);
-		size++;
+			set_flags(setup, args[size++], ap);
 	}
 	res = conversion_handler(args[size], ap);
-	ft_putstr(res);
+	output(res, setup);
 	if (args[size] != 's')
 		free(res);
 	return (size + 2);
