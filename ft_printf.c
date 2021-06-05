@@ -64,7 +64,7 @@ static	size_t	take_params(const char *args, va_list ap, t_settings *setup)
 			set_flags(setup, args[size++], ap);
 	}
 	res = conversion_handler(args[size], ap);
-	output(res, setup);
+	output(res, args[size], setup);
 	if (args[size] != 's')
 		free(res);
 	return (size + 2);

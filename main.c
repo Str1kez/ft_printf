@@ -1,8 +1,8 @@
 //
 // Created by Thao Nessround on 6/2/21.
 //
-#include "libftprintf.h"
 #include <stdio.h>
+#include "libftprintf.h"
 
 int	main(void)
 {
@@ -11,17 +11,18 @@ int	main(void)
 		//  "Ilya", 20, 'm');
 	// printf("My name is %s, I am %d years old. My favorite letter is '%c' %%\n",
 		//  "Ilya", 20, 'm');
-	// int a = 12;
-	// void *p = &a;
-	// printf("%p\n", p);
-	// ft_printf("%p\n", p);
-	// printf("%p\n", NULL);
-	// ft_printf("%p\n", NULL);
-	// ft_printf("%X\n", 64);
-	// printf("%X\n", 64);
-	// ft_printf("%u\n", 23423);
-	printf("%s%*s%c\n", "abc", 12, "omg", 64);
-	ft_printf("%s%*s%c\n", "aaa", 12, "omg", 64);
+	 int a = 12;
+	 void *p = &a;
+	 printf("%021.2p\n", p);
+	 ft_printf("%021.2p\n", p);
+	 printf("%021.2x\n", 34324);
+	 ft_printf("%021.2x\n", 34324);
+	 printf("%021.2s\n", "ffefef");
+	 ft_printf("%021.2s\n", "ffefef");
+	 printf("%-9d\n", -3434);
+	 ft_printf("%-9d\n", -3434);
+	 printf("%023.2u\n", 23423);
+	 ft_printf("%023.2u\n", 23423);
 	// ft_printf("%d\n", is_flag('0'));
 	// char *s = "00131233.23213";
 

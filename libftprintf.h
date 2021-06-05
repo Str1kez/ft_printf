@@ -37,6 +37,8 @@ char			*conversion_handler(char param, va_list ap);
 char			*char_to_str(unsigned char c);
 int				get_num_len(int num);
 size_t			ft_strlen(const char *str);
-void			output(char *conv, t_settings *setup);
+void			output(char *str, char conv, t_settings *setup);
+char			*cut_line(const char *str, int size);
+char			*ft_itoa(int n);
 
 #endif

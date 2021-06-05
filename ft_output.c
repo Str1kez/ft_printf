@@ -28,18 +28,41 @@ static	void	out(char *help, char *input, int query)
 	}
 }
 
-void	output(char *conv, t_settings *setup)
+static void	out_count(char *help, char *input, int count)
+{
+	int	iter;
+
+	iter = 0;
+	while (iter < count)
+		ft_putchar(input[iter++]);
+	ft_putstr(help);
+	ft_putstr(input + count);
+	free(help);
+}
+
+void	output(char *str, char conv, t_settings *setup)
 {
 	int		len;
 
-	len = ft_strlen(conv);
+	if (conv == 's' && setup->dot)
+		str = cut_line(str, setup->precision);
+	len = ft_strlen(str);
 	if (len < setup->size)
 	{
-		if (setup->zero)
-			out(create_space(setup->size - len, '0'), conv, 0);
+		if (setup->zero && (!setup->dot || conv == 's'))
+		{
+			if (conv == 'p')
+				out_count(create_space(setup->size - len, '0'), str, 2);
+			else if (conv == 'd')
+				out_count(create_space(setup->size - len, '0'), str, 1);
+			else
+				out(create_space(setup->size - len, '0'), str, 0);
+		}
 		else
-			out(create_space(setup->size - len, ' '), conv, setup->minus);
+			out(create_space(setup->size - len, ' '), str, setup->minus);
 	}
 	else
-		out(NULL, conv, 0);
+		out(NULL, str, 0);
+	if (conv == 's' && setup->dot)
+		free(str);
 }
