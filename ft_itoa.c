@@ -44,17 +44,17 @@ static int	num_on_iter(int n, int iter, int len)
 	return (help % 10);
 }
 
-char	*ft_itoa(int n)
+unsigned char	*ft_itoa(int n)
 {
-	char	*res;
-	int		len;
-	int		negative;
-	int		iter;
+	unsigned char	*res;
+	int				len;
+	int				negative;
+	int				iter;
 
 	iter = 0;
 	negative = is_negative(n);
 	len = num_len(n);
-	res = (char *)malloc(len + negative + 1);
+	res = (unsigned char *)malloc(len + negative + 1);
 	if (!res)
 		return (NULL);
 	if (negative)

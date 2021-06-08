@@ -17,28 +17,28 @@
 
 typedef struct s_settings
 {
-	int	precision;
-	int	dot;
-	int	minus;
-	int	zero;
-	int	size;
+	unsigned int	precision;
+	int				dot;
+	int				minus;
+	int				zero;
+	size_t			size;
 }				t_settings;
 
 int				ft_printf(const char *args, ...);
-void			ft_putstr(char *s);
+void			ft_putstr(unsigned char *s);
 void			ft_putchar(unsigned char c);
-char			*get_ptr(long long num);
-char			*get_uint_base(unsigned int num, char param, int base);
 int				ft_atoi(const char *str);
+int				ft_isdigit(int c);
+size_t			ft_strlen(const unsigned char *str);
+unsigned char	*ft_itoa(int n);
+unsigned char	*get_ptr(long long num);
+unsigned char	*get_uint_base(unsigned int num, char param, int base);
+int				get_num_len(int num);
+int				get_unum_len(unsigned int num, int base);
+unsigned char	*get_str(const unsigned char *s1);
 int				is_conversion(const char chr);
 int				is_flag(const char chr);
-int				ft_isdigit(int c);
-char			*conversion_handler(char param, va_list ap);
-char			*char_to_str(unsigned char c);
-int				get_num_len(int num);
-size_t			ft_strlen(const char *str);
-void			output(char *str, char conv, t_settings *setup);
-char			*cut_line(const char *str, int size);
-char			*ft_itoa(int n);
+void			conversion_handler(char param, va_list ap, t_settings *setup);
+unsigned char	*char_to_str(unsigned char c);
 
 #endif

@@ -1,22 +1,22 @@
-#include "libftprintf.h"
+#include "output_type/ftoutput_type.h"
 
-char	*conversion_handler(char param, va_list ap)
+void	conversion_handler(char param, va_list ap, t_settings *setup)
 {
 	if (param == 's')
-		return (va_arg(ap, char *));
-	if (param == 'd')
-		return (ft_itoa(va_arg(ap, int)));
-	if (param == 'i')
-		return (get_uint_base(va_arg(ap, int), param, 10));
+		output_s(va_arg(ap, unsigned char *), setup);
+	if (param == 'd' || param == 'i')
+		output_d(ft_itoa(va_arg(ap, int)), setup);
 	if (param == 'c')
-		return (char_to_str(va_arg(ap, unsigned int)));
+		output_c(va_arg(ap, unsigned int), setup);
+//	if (param == 'i')
+//		output(get_uint_base(va_arg(ap, int), param, 10), param, setup);
 	if (param == '%')
-		return (char_to_str('%'));
+		output_c('%', setup);
 	if (param == 'p')
-		return (get_ptr(va_arg(ap, long long)));
-	if (param == 'x' || param == 'X')
-		return (get_uint_base(va_arg(ap, unsigned int), param, 16));
-	if (param == 'u')
-		return (get_uint_base(va_arg(ap, unsigned int), param, 10));
-	return (NULL);
+		output_p(get_ptr(va_arg(ap, long long)), setup);
+//	if (param == 'x' || param == 'X')
+//		return (get_uint_base(va_arg(ap, unsigned int), param, 16));
+//	if (param == 'u')
+//		return (get_uint_base(va_arg(ap, unsigned int), param, 10));
+//	return (NULL);
 }

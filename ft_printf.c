@@ -11,12 +11,20 @@ static	void	init_settings(t_settings *s)
 
 static	void	set_flags(t_settings *setup, char key, va_list ap)
 {
+	int	check;
+
 	if (key == '*')
 	{
+		check = va_arg(ap, int);
+		if (check < 0)
+		{
+			check = 0;
+			setup->dot = 0;
+		}
 		if (setup->dot)
-			setup->precision = va_arg(ap, unsigned int);
+			setup->precision = check;
 		else
-			setup->size = va_arg(ap, unsigned int);
+			setup->size = check;
 	}
 	if (key == '.')
 		setup->dot = 1;
@@ -51,8 +59,7 @@ static	int	set_precision_size(const char *args, t_settings *setup)
 
 static	size_t	take_params(const char *args, va_list ap, t_settings *setup)
 {
-	size_t		size;
-	char		*res;
+	size_t			size;
 
 	size = 0;
 	while (!is_conversion(args[size]))
@@ -63,10 +70,7 @@ static	size_t	take_params(const char *args, va_list ap, t_settings *setup)
 		if (is_flag(args[size]))
 			set_flags(setup, args[size++], ap);
 	}
-	res = conversion_handler(args[size], ap);
-	output(res, args[size], setup);
-	if (args[size] != 's')
-		free(res);
+	conversion_handler(args[size], ap, setup);
 	return (size + 2);
 }
 

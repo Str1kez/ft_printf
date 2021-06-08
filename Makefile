@@ -8,9 +8,16 @@ LIST_FILES	= 	ft_atoi.c \
 				ft_get_uint_base.c \
 				ft_handlers.c \
 				ft_itoa.c \
-				ft_output.c \
 				ft_printf.c \
 				ft_putstr.c \
+				ft_get_str.c \
+				./output_type/ft_create_space.c \
+				./output_type/ft_go_out.c \
+				./output_type/ft_output_c.c \
+				./output_type/ft_output_p.c \
+				./output_type/ft_output_s.c \
+				./output_type/ft_output_d.c \
+
 
 GCC 		=	gcc
 OBJS		=	$(LIST_FILES:.c=.o)

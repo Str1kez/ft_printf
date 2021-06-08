@@ -1,29 +1,26 @@
 #include "libftprintf.h"
 
-char	*get_uint_base(unsigned int num, char param, int base)
+unsigned char	*get_uint_base(unsigned int num, char param, int base)
 {
-	char			*res;
+	unsigned char	*res;
 	int				count;
-	int				mod;
-	unsigned int	num_cpy;
+	unsigned int	mod;
 
-	count = 0;
-	num_cpy = num;
-	while (num_cpy)
+	count = get_unum_len(num, base);
+	res = (unsigned char *)malloc(count + 1);
+	if (res)
 	{
-		count++;
-		num_cpy /= base;
+		res[count--] = '\0';
+		while (count > -1)
+		{
+			mod = num % base;
+			if (mod > 9)
+				res[count--] = mod % 10 + param - 23;
+			else
+				res[count--] = mod + 48;
+			num /= base;
+		}
+		return (res);
 	}
-	res = malloc(count + 1);
-	res[count--] = '\0';
-	while (count > -1)
-	{
-		mod = num % base;
-		if (mod > 9)
-			res[count--] = mod % 10 + param - 23;
-		else
-			res[count--] = mod + 48;
-		num /= base;
-	}
-	return (res);
+	return (NULL);
 }

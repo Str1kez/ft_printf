@@ -1,30 +1,49 @@
 #include <stdlib.h>
 #include "libftprintf.h"
 
-char	*get_ptr(long long num)
+static void	paste_num(unsigned char *s, long long num, int iter)
 {
-	char	*res;
-	int		iter;
-	int		mod;
-	int		start;
+	int	mod;
 
-	if (!num)
-		start = 2;
-	else
-		start = 13;
-	iter = start;
-	res = malloc(start + 2);
-	res[0] = '0';
-	res[1] = 'x';
 	while (iter > 1)
 	{
 		mod = num % 16;
 		if (mod > 9)
-			res[iter--] = mod % 10 + 97;
+			s[iter--] = mod % 10 + 97;
 		else
-			res[iter--] = mod + 48;
+			s[iter--] = mod + 48;
 		num /= 16;
 	}
-	res[start + 1] = '\0';
+}
+
+static int	get_len_ptr(long long num)
+{
+	int	size;
+
+	size = 0;
+	while (num)
+	{
+		num /= 16;
+		size++;
+	}
+	return (size);
+}
+
+unsigned char	*get_ptr(long long num)
+{
+	unsigned char	*res;
+	int				start;
+
+	if (!num)
+		start = 1;
+	else
+		start = get_len_ptr(num);
+	res = malloc(start + 3);
+	if (!res)
+		return (NULL);
+	res[0] = '0';
+	res[1] = 'x';
+	paste_num(res, num, start + 1);
+	res[start + 2] = '\0';
 	return (res);
 }

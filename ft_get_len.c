@@ -13,7 +13,20 @@ int	get_num_len(int num)
 	return (size);
 }
 
-size_t	ft_strlen(const char *str)
+int	get_unum_len(unsigned int num, int base)
+{
+	int	size;
+
+	size = 0;
+	while (num)
+	{
+		num /= base;
+		size++;
+	}
+	return (size);
+}
+
+size_t	ft_strlen(const unsigned char *str)
 {
 	size_t	count;
 
