@@ -35,10 +35,8 @@ unsigned char	*get_ptr(long long num);
 unsigned char	*get_uint_base(unsigned int num, char param, int base);
 int				get_num_len(int num);
 int				get_unum_len(unsigned int num, int base);
-unsigned char	*get_str(const unsigned char *s1);
 int				is_conversion(const char chr);
 int				is_flag(const char chr);
 void			conversion_handler(char param, va_list ap, t_settings *setup);
-unsigned char	*char_to_str(unsigned char c);
 
 #endif

@@ -1,31 +1,30 @@
 #include "libftprintf.h"
 
-static	void	init_settings(t_settings *s)
+static	void	set_asterisk(t_settings *setup, char *key, va_list ap)
 {
-	s->dot = 0;
-	s->minus = 0;
-	s->precision = 0;
-	s->size = 0;
-	s->zero = 0;
+	int	check;
+
+	check = va_arg(ap, int);
+	if (check < 0)
+	{
+		check = -check;
+		*key = '-';
+		if (setup->dot)
+			setup->dot = 0;
+		else
+			setup->size = check;
+		return ;
+	}
+	if (setup->dot)
+		setup->precision = check;
+	else
+		setup->size = check;
 }
 
 static	void	set_flags(t_settings *setup, char key, va_list ap)
 {
-	int	check;
-
 	if (key == '*')
-	{
-		check = va_arg(ap, int);
-		if (check < 0)
-		{
-			check = 0;
-			setup->dot = 0;
-		}
-		if (setup->dot)
-			setup->precision = check;
-		else
-			setup->size = check;
-	}
+		set_asterisk(setup, &key, ap);
 	if (key == '.')
 		setup->dot = 1;
 	if (key == '-')
@@ -84,7 +83,11 @@ int	ft_printf(const char *args, ...)
 	{
 		if (*args == '%')
 		{
-			init_settings(&setup);
+			setup.dot = 0;
+			setup.minus = 0;
+			setup.precision = 0;
+			setup.size = 0;
+			setup.zero = 0;
 			args += take_params(args + 1, ap, &setup);
 		}
 		else

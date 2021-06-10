@@ -97,8 +97,9 @@ static void	neg_screen(unsigned char *str, t_settings *setup,
 	iter = 0;
 	while (iter < ft_strlen(str))
 		ft_putchar(str[iter++]);
-	while (size++ < setup->size - minus)
-		ft_putchar(space);
+	if (setup->size > 0 || !minus)
+		while (size++ < setup->size - minus)
+			ft_putchar(space);
 }
 
 void	output_d(unsigned char *str, t_settings *setup)

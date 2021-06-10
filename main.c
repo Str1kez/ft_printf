@@ -3,6 +3,7 @@
 //
 #include <stdio.h>
 #include "libftprintf.h"
+#include <limits.h>
 
 void check_leaks();
 
@@ -22,13 +23,13 @@ int	main(void)
 //	ft_printf("%021.2s\n", "ffefef");
 //	printf("%-9d\n", -3434);
 //	ft_printf("%-9d\n", -3434);
-//	printf("%023.2u\n", 23423);
-//	ft_printf("%023.2u\n", 23423);
+	printf("%% *.5i 42 == |% *.5i|", 4, 42);
+	ft_printf("%% *.5i 42 == |%*.5i|", 4, 42);
 //	printf("%22.3c\n", '\0');
 //	printf("%22.3c\n", '\0');
 //	ft_printf("%05.2c\n", 'a');
-	printf("%i",  2147483647);
-	ft_printf("%i",  2147483647);
+//	printf("%i",  2147483647);
+//	ft_printf("%i",  2147483647);
 //	printf("%-5c\n", '\0');
 //	ft_printf("%-5c\n", '\0');
 //	printf("%.8d\n", -34434);

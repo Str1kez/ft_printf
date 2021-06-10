@@ -18,6 +18,8 @@ int	get_unum_len(unsigned int num, int base)
 	int	size;
 
 	size = 0;
+	if (!num)
+		return (1);
 	while (num)
 	{
 		num /= base;
