@@ -1,8 +1,6 @@
 SRCDIR 		= ./
 LIST_FILES	= 	ft_atoi.c \
-				ft_chartostr.c \
 				ft_checkers.c \
-				ft_cut_line.c \
 				ft_get_len.c \
 				ft_get_ptr.c \
 				ft_get_uint_base.c \
@@ -10,7 +8,6 @@ LIST_FILES	= 	ft_atoi.c \
 				ft_itoa.c \
 				ft_printf.c \
 				ft_putstr.c \
-				ft_get_str.c \
 				./output_type/ft_create_space.c \
 				./output_type/ft_go_out.c \
 				./output_type/ft_output_c.c \
