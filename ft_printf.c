@@ -8,11 +8,13 @@ static	void	set_asterisk(t_settings *setup, char *key, va_list ap)
 	if (check < 0)
 	{
 		check = -check;
-		*key = '-';
 		if (setup->dot)
 			setup->dot = 0;
 		else
+		{
+			*key = '-';
 			setup->size = check;
+		}
 		return ;
 	}
 	if (setup->dot)
@@ -64,7 +66,7 @@ static	size_t	take_params(const char *args, va_list ap, t_settings *setup)
 	while (!is_conversion(args[size]))
 	{
 		if (ft_isdigit(args[size])
-			&& (args[size] != '0' || setup->zero || setup->minus))
+			&& (args[size] != '0' || setup->zero || setup->minus || setup->dot))
 			size += set_precision_size(args + size, setup);
 		if (is_flag(args[size]))
 			set_flags(setup, args[size++], ap);
@@ -79,6 +81,7 @@ int	ft_printf(const char *args, ...)
 	t_settings	setup;
 
 	va_start(ap, args);
+	setup.p_count = 0;
 	while (*args)
 	{
 		if (*args == '%')
@@ -91,8 +94,11 @@ int	ft_printf(const char *args, ...)
 			args += take_params(args + 1, ap, &setup);
 		}
 		else
+		{
 			ft_putchar(*args++);
+			setup.p_count++;
+		}
 	}
 	va_end(ap);
-	return (0);
+	return (setup.p_count);
 }

@@ -22,16 +22,16 @@ typedef struct s_settings
 	int				minus;
 	int				zero;
 	size_t			size;
+	int				p_count;
 }				t_settings;
 
 int				ft_printf(const char *args, ...);
-void			ft_putstr(unsigned char *s);
 void			ft_putchar(unsigned char c);
 int				ft_atoi(const char *str);
 int				ft_isdigit(int c);
 size_t			ft_strlen(const unsigned char *str);
 unsigned char	*ft_itoa(int n);
-unsigned char	*get_ptr(long long num);
+unsigned char	*get_ptr(unsigned long num);
 unsigned char	*get_uint_base(unsigned int num, char param, int base);
 int				get_num_len(int num);
 int				get_unum_len(unsigned int num, int base);

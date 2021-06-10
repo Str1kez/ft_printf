@@ -11,7 +11,7 @@ void	conversion_handler(char param, va_list ap, t_settings *setup)
 	if (param == '%')
 		output_c('%', setup);
 	if (param == 'p')
-		output_p(get_ptr(va_arg(ap, long long)), setup);
+		output_p(get_ptr(va_arg(ap, unsigned long)), setup);
 	if (param == 'x' || param == 'X')
 		output_d(get_uint_base(va_arg(ap, unsigned int), param, 16), setup);
 	if (param == 'u')

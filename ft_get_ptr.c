@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "libftprintf.h"
 
-static void	paste_num(unsigned char *s, long long num, int iter)
+static void	paste_num(unsigned char *s, unsigned long num, int iter)
 {
 	int	mod;
 
@@ -16,7 +16,7 @@ static void	paste_num(unsigned char *s, long long num, int iter)
 	}
 }
 
-static int	get_len_ptr(long long num)
+static int	get_len_ptr(unsigned long num)
 {
 	int	size;
 
@@ -29,7 +29,7 @@ static int	get_len_ptr(long long num)
 	return (size);
 }
 
-unsigned char	*get_ptr(long long num)
+unsigned char	*get_ptr(unsigned long num)
 {
 	unsigned char	*res;
 	int				start;

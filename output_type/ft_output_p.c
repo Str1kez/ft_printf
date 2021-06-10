@@ -4,62 +4,93 @@
 
 #include "ftoutput_type.h"
 
-static unsigned char	*create_ptr_precision(size_t size, unsigned char *str)
+static size_t	max(size_t len, unsigned int precision)
 {
-	unsigned char	*result;
-	size_t			len;
-	size_t			i;
-
-	len = ft_strlen(str);
-	result = (unsigned char *)malloc(sizeof(unsigned char) * (size + 3));
-	if (!result)
-		return (NULL);
-	result[size + 2] = '\0';
-	i = 2;
-	result[0] = '0';
-	result[1] = 'x';
-	while (i < size - len + 4)
-		result[i++] = '0';
-	i = 0;
-	while (size - len + i < size)
-	{
-		result[size - len + i + 4] = str[i + 2];
-		i++;
-	}
-	free(str);
-	return (result);
+	if (len < precision)
+		return (precision);
+	return (len);
 }
 
-static void	out_count(unsigned char *help, unsigned char *input, int count)
+static void	pos_screen(unsigned char *str, t_settings *setup,
+						  char space)
 {
-	int	iter;
+	size_t	iter;
+	size_t	size;
 
 	iter = 0;
-	while (iter < count)
-		ft_putchar(input[iter++]);
-	ft_putstr(help);
-	ft_putstr(input + count);
-	free(help);
-	free(input);
+	size = max(ft_strlen(str) - 2, setup->precision);
+	if (setup->size > size + 2)
+		setup->p_count += setup->size - size - 2;
+	while (space == ' ' && size + 2 < setup->size--)
+		ft_putchar(space);
+	ft_putchar(str[0]);
+	ft_putchar(str[1]);
+	while (space == '0' && size + 2 < setup->size--)
+		ft_putchar(space);
+	while (iter++ + ft_strlen(str) - 2 < size)
+		ft_putchar('0');
+	setup->p_count += iter - 1;
+	iter = 2;
+	while (iter < ft_strlen(str))
+		ft_putchar(str[iter++]);
+	setup->p_count += iter - 2;
+}
+
+static void	neg_screen(unsigned char *str, t_settings *setup,
+						  char space)
+{
+	size_t	iter;
+	size_t	size;
+
+	iter = 0;
+	size = max(ft_strlen(str) - 2, setup->precision);
+	ft_putchar(str[0]);
+	ft_putchar(str[1]);
+	while (iter++ + ft_strlen(str) - 2 < size)
+		ft_putchar('0');
+	setup->p_count += iter - 1;
+	iter = 2;
+	while (iter < ft_strlen(str))
+		ft_putchar(str[iter++]);
+	setup->p_count += iter - 2;
+	while (size++ + 2 < setup->size)
+	{
+		ft_putchar(space);
+		setup->p_count++;
+	}
+}
+
+static void	output_empty(unsigned char *str, t_settings *setup)
+{
+	if (setup->size > 2)
+		setup->p_count += setup->size - 2;
+	if (!setup->minus)
+		while (setup->size-- > 2)
+			ft_putchar(' ');
+	ft_putchar(str[0]);
+	ft_putchar(str[1]);
+	if (setup->minus)
+		while (setup->size-- > 2)
+			ft_putchar(' ');
+	free(str);
 }
 
 void	output_p(unsigned char *str, t_settings *setup)
 {
-	size_t	len;
+	char	space;
 
-	len = ft_strlen(str);
-	if (setup->dot && setup->precision > len - 2)
+	space = ' ';
+	setup->p_count += 2;
+	if (setup->dot && !setup->precision && !str[3])
 	{
-		str = create_ptr_precision(setup->precision, str);
-		len = ft_strlen(str);
+		output_empty(str, setup);
+		return ;
 	}
-	if (setup->size > len)
-	{
-		if (setup->zero && !setup->dot)
-			out_count(create_space(setup->size - len, '0'), str, 2);
-		else
-			out(create_space(setup->size - len, ' '), str, setup->minus);
-	}
+	if (setup->zero && !setup->dot)
+		space = '0';
+	if (setup->minus)
+		neg_screen(str, setup, space);
 	else
-		out(NULL, str, 0);
+		pos_screen(str, setup, space);
+	free(str);
 }

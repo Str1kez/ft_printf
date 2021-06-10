@@ -12,27 +12,35 @@ static size_t	min(size_t len, unsigned int precision)
 }
 
 static void	pos_screen(unsigned char *str, size_t size,
-					   size_t s_size, char space)
+					   t_settings *s, char space)
 {
 	size_t	iter;
 
 	iter = 0;
-	while (s_size-- > size)
+	while (s->size-- > size)
+	{
 		ft_putchar(space);
+		s->p_count++;
+	}
 	while (iter < size)
 		ft_putchar(str[iter++]);
+	s->p_count += size;
 }
 
 static void	neg_screen(unsigned char *str, size_t size,
-					   size_t s_size, char space)
+					   t_settings *s, char space)
 {
 	size_t	iter;
 
 	iter = 0;
 	while (iter < size)
 		ft_putchar(str[iter++]);
-	while (s_size-- > size)
+	s->p_count += size;
+	while (s->size-- > size)
+	{
 		ft_putchar(space);
+		s->p_count++;
+	}
 }
 
 static unsigned char	*null_ptr(void)
@@ -70,9 +78,9 @@ void	output_s(unsigned char *str, t_settings *setup)
 	if (setup->zero)
 		space = '0';
 	if (setup->minus)
-		neg_screen(str, size, setup->size, space);
+		neg_screen(str, size, setup, space);
 	else
-		pos_screen(str, size, setup->size, space);
+		pos_screen(str, size, setup, space);
 	if (flag)
 		free(str);
 }

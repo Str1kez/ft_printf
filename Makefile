@@ -7,9 +7,7 @@ LIST_FILES	= 	ft_atoi.c \
 				ft_handlers.c \
 				ft_itoa.c \
 				ft_printf.c \
-				ft_putstr.c \
-				./output_type/ft_create_space.c \
-				./output_type/ft_go_out.c \
+				ft_putchar.c \
 				./output_type/ft_output_c.c \
 				./output_type/ft_output_p.c \
 				./output_type/ft_output_s.c \
