@@ -63,6 +63,9 @@ static	size_t	take_params(const char *args, va_list ap, t_settings *setup)
 	size_t			size;
 
 	size = 0;
+	if (!args[size] || (!is_flag(args[size]) && !ft_isdigit(args[size])
+			&& !is_conversion(args[size])))
+		return (1);
 	while (!is_conversion(args[size]))
 	{
 		if (ft_isdigit(args[size])
